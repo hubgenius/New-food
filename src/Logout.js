@@ -1,11 +1,13 @@
 import React,{useEffect} from 'react'
-import {useHistory} from "react-router-dom"
+import {useHistory} from "react-router-dom" 
 function Logout() {
-    let history=useHistory()
-    useEffect(() => {
+  let history =useHistory()
         localStorage.clear()
-        history.push("/")
-    }, [])
+        setTimeout(() => {
+          window.location.reload(true)
+            history.push('/')
+        }, 1000);
+    
   return (
     <div>
         

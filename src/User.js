@@ -14,7 +14,7 @@ function Copy() {
     function data() {
         let token = localStorage.getItem("token");
 
-        axios.get(`http://localhost:8000`,{ headers: { 'x-access-token': token } })
+        axios.get(`https://unlimitedfood.herokuapp.com`,{ headers: { 'x-access-token': token } })
             .then(res => {
                 console.log(res)
                 const tableData = res.data.data
@@ -29,7 +29,7 @@ function Copy() {
     function deleteuser(_id) {
         console.log(_id);
         let token = localStorage.getItem("token");
-        axios.delete(`http://localhost:8000/${_id}`,{ headers: { 'x-access-token': token } }).then((result) => {
+        axios.delete(`https://unlimitedfood.herokuapp.com/${_id}`,{ headers: { 'x-access-token': token } }).then((result) => {
             console.log("result.data", result);
             data()
 

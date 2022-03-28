@@ -19,7 +19,7 @@ export default function Pp() {
     function data() {
         let token = localStorage.getItem("token");
 
-        axios.get(`http://localhost:8000/Abc`, { headers: { 'x-access-token': token } }).then((res) => {
+        axios.get(`https://unlimitedfood.herokuapp.com/Abc`, { headers: { 'x-access-token': token } }).then((res) => {
             setName(res.data.data.username)
             setemail(res.data.data.email)
             setphonenumber(res.data.data.phone)
@@ -37,7 +37,7 @@ export default function Pp() {
         FD.append('phone',phonenumber)
         FD.append('profile_file', profile[0]);
         console.log("profile", profile);
-        axios.put(`http://localhost:8000/${id}`, FD,{ headers: { 'x-access-token': token } })
+        axios.put(`https://unlimitedfood.herokuapp.com/${id}`, FD,{ headers: { 'x-access-token': token } })
         history.push('/User')
 
     }
@@ -77,6 +77,7 @@ export default function Pp() {
   
 
                     <Button  type='submit' onClick={postData}>Submit</Button>
+                    
                 </form>
             </div>
         </div>

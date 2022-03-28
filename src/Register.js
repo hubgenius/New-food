@@ -78,7 +78,7 @@ function Register() {
         console.log(FD)
     //    let token = localStorage.getItem('token')
 
-        axios.post("http://localhost:8000/Add", FD).then((res) => {
+        axios.post("https://unlimitedfood.herokuapp.com/Add", FD).then((res) => {
             history.push('/User')
         })
         setOpen(true);

@@ -28,10 +28,11 @@ const Login = () => {
         }
         console.log(item)
 
-        axios.post("http://localhost:8000/login", item).then((res) => {
+        axios.post("https://unlimitedfood.herokuapp.com/login", item).then((res) => {
             localStorage.setItem('token', res.data.token);
+            window.location.reload(true)
             if(res.data.success=== true) {
-                history.push('/User')
+                // history.push('/User')
             }
             // console.log("updare", res)
         })

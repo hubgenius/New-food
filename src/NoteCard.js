@@ -5,6 +5,7 @@ import React from 'react'
 import { styled } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
 import Avatar from '@mui/material/Avatar';
+import { Link } from 'react-router-dom';
 
 function NoteCard({ note, handleclick }) {
     return (
@@ -37,12 +38,12 @@ function NoteCard({ note, handleclick }) {
                         price: {note.price}
                     </Typography>
                 </CardContent>
-                <CardActions>
-                    <Button size="large">Know More</Button>
-
-                </CardActions>
 
             </Card>
+                {/* <CardActions>
+                    <Button size="large"><Link to ='/Add'> Add</Link></Button>
+
+                </CardActions> */}
 
         </div>
     )

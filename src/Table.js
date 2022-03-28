@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { Link,useParams } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
-import {Navbar,Container,Offcanvas,Nav,Form,FormControl,Button,Figure} from 'react-bootstrap'
-import {  Grid, Paper } from '@material-ui/core';
+import {Navbar,Container,Offcanvas,Nav,Form,FormControl,Button,Figure,} from 'react-bootstrap'
+import {  Grid, Paper,CardActions } from '@material-ui/core';
 import NoteCard from './NoteCard';
 function Table() {
     const { id } = useParams()
@@ -18,7 +18,7 @@ function Table() {
 
     function data() {
         // let token = localStorage.getItem('token')
-        axios.get(`http://localhost:8000/food`)
+        axios.get(`https://unlimitedfood.herokuapp.com/food`)
             .then(res => {
                 const tableData = res.data.data;
                 setuser(tableData)
@@ -29,7 +29,7 @@ function Table() {
     function deleteuser(id) {
         // let token = localStorage.getItem('token')
         console.log(id);
-        axios.delete(`http://localhost:8000/food/${id}`)
+        axios.delete(`https://unlimitedfood.herokuapp.com/food/${id}`)
         .then((result) => {
             console.log("result.data", result.data);
             data()
@@ -142,6 +142,12 @@ function Table() {
                       }
                 ]}
             /> */}
+            
+            <CardActions>
+                    <Link to ='/Add'> Add</Link>
+
+                </CardActions>
+           
                 <Container>
                 <Grid container spacing={3}>
                     {user.map(user => (

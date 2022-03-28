@@ -39,7 +39,7 @@ export default function OutlinedCard() {
 
   function data() {
       let token = localStorage.getItem('token')
-      axios.get(`http://localhost:8000`,{ headers:{'x-access-token':token}})
+      axios.get(`https://unlimitedfood.herokuapp.com`,{ headers:{'x-access-token':token}})
           .then(res => {
               console.log('heyyyy________',res.data)
               const tableData = res.data.user;

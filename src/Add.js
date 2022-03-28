@@ -1,8 +1,8 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, Paper, TextField } from '@material-ui/core'
 import { Button } from 'react-bootstrap'
 import { useParams, useHistory, Link } from "react-router-dom"
-import {omit} from 'lodash'
+import { omit } from 'lodash'
 
 // import axios from 'axios'
 // import { omit } from 'lodash'
@@ -13,13 +13,13 @@ import Stack from '@mui/material/Stack';
 import axios from 'axios'
 function Register() {
     const [open, setOpen] = useState(false);
-    const [username, setUsername] = useState('');
+    const [name, setname] = useState('');
     const [description, setdescription] = useState('');
     const [quantities, setquantities] = useState('');
     const [price, setprice] = useState('');
     const [profile, setProfile] = useState([]);
     const [errors, setErrors] = useState({});
-    
+
     const { id } = useParams()
     let history = useHistory();
     const paperStyle = { padding: '30px 20px', width: 300, margin: '20px auto' }
@@ -29,10 +29,10 @@ function Register() {
     const getuser = () => {
         if (id === undefined || id === null) {
         } else {
-            axios.get(`http://localhost:8000`).then((result) => {
+            axios.get(`https://unlimitedfood.herokuapp.com`).then((result) => {
                 console.log("result.data", result)
                 if (result.data.success === true) {
-                    setUsername(result.data.user[0].username)
+                    setname(result.data.user[0].name)
                     setdescription(result.data.user[0].description)
                     setquantities(result.data.user[0].quantities)
                     setprice(result.data.user[0].price)
@@ -45,11 +45,11 @@ function Register() {
     }
     const handleClick = () => {
         let FD = new FormData();
-            FD.append('username', username);
-            FD.append('description', description);
-            FD.append('quantities', quantities);
-            FD.append('price', price);
-                FD.append('profile_file',profile[0])
+        FD.append('name', name);
+        FD.append('description', description);
+        FD.append('quantities', quantities);
+        FD.append('price', price);
+        FD.append('profile_file', profile[0])
         //     axios.post('http://localhost:8000/', FD)
         // let item = {
 
@@ -61,7 +61,7 @@ function Register() {
         // }
         // console.log(item)
         let token = localStorage.getItem('token')
-        axios.post(`http://localhost:8000`, FD,{ headers:{'x-access-token':token}}).then((res) => {
+        axios.post(`https://unlimitedfood.herokuapp.com`, FD, { headers: { 'x-access-token': token } }).then((res) => {
         })
         history.push('/Table')
         setOpen(true);
@@ -73,21 +73,21 @@ function Register() {
         }
         setOpen(false);
     };
- 
-  
 
-  return (
-    <div>
-          <Grid>
+
+
+    return (
+        <div>
+            <Grid>
                 <Paper elevation={20} style={paperStyle}>
                     <Grid align='center'>
                         <h2> Add Food Item</h2>
                     </Grid>
                     <form>
-                        <TextField name='username' fullWidth label='Username'  value={username} onChange={(e) => setUsername(e.target.value)} />
-                        <TextField name='description' fullWidth label='description'  value={description} onChange={(e) => setdescription(e.target.value)} />
-                        <TextField name='quantities' fullWidth label='quantities'value={quantities} onChange={(e) => setquantities(e.target.value)}   />
-                        <TextField name='price' fullWidth label='price' value={price} onChange={(e) => setprice(e.target.value)}   />
+                        <TextField name='name' fullWidth label='name' value={name} onChange={(e) => setname(e.target.value)} />
+                        <TextField name='description' fullWidth label='description' value={description} onChange={(e) => setdescription(e.target.value)} />
+                        <TextField name='quantities' fullWidth label='quantities' value={quantities} onChange={(e) => setquantities(e.target.value)} />
+                        <TextField name='price' fullWidth label='price' value={price} onChange={(e) => setprice(e.target.value)} />
                         <TextField name="profile" type="file" onChange={(e) => setProfile(e.target.files)} />
                         <br />
                         <br />
@@ -102,8 +102,8 @@ function Register() {
                     </form>
                 </Paper>
             </Grid>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default Register
