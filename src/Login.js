@@ -32,7 +32,7 @@ const Login = () => {
             localStorage.setItem('token', res.data.token);
             if(res.data.success=== true) {
                 window.location.reload(true)
-                history.push('/Table')
+                // history.push('/Table')
             }
             // console.log("updare", res)
         })
