@@ -32,7 +32,7 @@ const Login = () => {
             localStorage.setItem('token', res.data.token);
             window.location.reload(true)
             if(res.data.success=== true) {
-                // history.push('/User')
+                history.push('/Table')
             }
             // console.log("updare", res)
         })
@@ -110,7 +110,7 @@ const Login = () => {
                         <br />
                         <br />
                         <Grid align='center'>
-                            <Button type='submit' class='btn btn-info' onClick={ postData}><Link to='/User'>Submit </Link></Button>
+                            <Button type='submit' class='btn btn-info' onClick={ postData}>Submit </Button>
                             {/* <Stack spacing={2} sx={{ width: '100%' }}>
                                 <Button variant="outlined" onClick={handleClick}>
                                  
