@@ -30,9 +30,9 @@ const Login = () => {
 
         axios.post("https://unlimitedfood.herokuapp.com/login", item).then((res) => {
             localStorage.setItem('token', res.data.token);
+            window.location.reload(true)
             // if(res.data.success=== true) {
-                history.push('/Table')
-                window.location.reload(true)
+            //     history.push('/Tabl')
             // }
             // console.log("updare", res)
         })
@@ -110,7 +110,7 @@ const Login = () => {
                         <br />
                         <br />
                         <Grid align='center'>
-                            <Button type='submit' class='btn btn-info' onClick={ postData}>Submit </Button>
+                            <Button type='submit' class='btn btn-info' onClick={ postData}><Link to='/Table'>Submit </Link></Button>
                             {/* <Stack spacing={2} sx={{ width: '100%' }}>
                                 <Button variant="outlined" onClick={handleClick}>
                                  
