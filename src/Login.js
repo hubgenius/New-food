@@ -35,8 +35,8 @@ const Login = () => {
         console.log(item)
 
         axios.post("https://unlimitedfood.herokuapp.com/login", item).then((res) => {
+            localStorage.setItem('token', res.data.token);
             if (res.data.success === true) {
-                localStorage.setItem('token', res.data.token);
                 window.location.reload(true)
                 //     history.push('/Tabl')
             }
