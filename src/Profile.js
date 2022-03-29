@@ -20,7 +20,7 @@ export default function Pp() {
         let token = localStorage.getItem("token");
 
         axios.get(`https://unlimitedfood.herokuapp.com/Abc`, { headers: { 'x-access-token': token } }).then((res) => {
-            setName(res.data.data.name)
+            setName(res.data.data.username)
             setemail(res.data.data.email)
             setphonenumber(res.data.data.phone)
             setProfile(res.data.data.profile_url)
@@ -32,7 +32,7 @@ export default function Pp() {
         let token = localStorage.getItem("token");
 
         let FD = new FormData();
-        FD.append('name', name);
+        FD.append('username', name);
         FD.append('email',email)
         FD.append('phone',phonenumber)
         FD.append('profile_file', profile[0]);

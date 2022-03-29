@@ -40,7 +40,7 @@ function Copy() {
 
     const columns = [
         {
-            title: 'username', field: "name"
+            title: 'username', field: "username"
         },
         {
             title: "email", field: "email"
