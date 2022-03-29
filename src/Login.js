@@ -30,10 +30,10 @@ const Login = () => {
 
         axios.post("https://unlimitedfood.herokuapp.com/login", item).then((res) => {
             localStorage.setItem('token', res.data.token);
-            if(res.data.success=== true) {
+            // if(res.data.success=== true) {
+                history.push('/Table')
                 window.location.reload(true)
-                // history.push('/Table')
-            }
+            // }
             // console.log("updare", res)
         })
     }
