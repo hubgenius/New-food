@@ -6,6 +6,7 @@ import { Button ,Figure} from 'react-bootstrap'
 import { useParams, useHistory, Link } from "react-router-dom"
 import axios from 'axios'
 import { omit } from 'lodash'
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -101,7 +102,7 @@ const Login = () => {
             <Grid>
                 <Paper elevation={20} style={paperStyle}>
                     <Grid align='center'>
-                        <h2> Login Page</h2>
+                        <h2> Login <VpnKeyIcon/></h2>
                     </Grid>
                     <form>
                         {/* <TextField name='username' fullWidth label='UserName' value={values.username} onChange={handleChange} error={Boolean(errors.username)} helperText={errors.username} /> */}
@@ -110,7 +111,7 @@ const Login = () => {
                         <br />
                         <br />
                         <Grid align='center'>
-                            <Button type='submit' class='btn btn-info' onClick={ postData}><Link to='/Table'>Submit </Link></Button>
+                            <Button type='submit' class='btn btn-info' onClick={ postData}><Link to='/Table'>Login </Link></Button>
                             {/* <Stack spacing={2} sx={{ width: '100%' }}>
                                 <Button variant="outlined" onClick={handleClick}>
                                  

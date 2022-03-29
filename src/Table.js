@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import {Navbar,Container,Offcanvas,Nav,Form,FormControl,Button,Figure,} from 'react-bootstrap'
 import {  Grid, Paper,CardActions } from '@material-ui/core';
 import NoteCard from './NoteCard';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 function Table() {
     const { id } = useParams()
     let history = useHistory();
@@ -144,7 +145,7 @@ function Table() {
             /> */}
             
             <CardActions>
-                    <Link to ='/Add'> Add</Link>
+                    <Link to ='/Add'> <AddCircleOutlineIcon/>Add</Link>
 
                 </CardActions>
            
