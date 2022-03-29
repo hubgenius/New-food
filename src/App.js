@@ -63,7 +63,7 @@ function App() {
           <PublicRoute exact path="/" component={Login} />
           <PublicRoute  path="/Register" component={Register} />
           <PublicRoute  path="/forget" component={Forgot} />
-          <PrivateRoute exact path="/Logout" component={Logout} />
+          <PrivateRoute path="/Logout" component={Logout} />
            <PrivateRoute path="/Table" component={Table} />
           <PrivateRoute  path="/add" component={Add} />
           <PrivateRoute  path="/User" component={User} />
