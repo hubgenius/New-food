@@ -72,7 +72,10 @@ export default function Pp() {
                         label='Mobilenumber'
                         />
                     </div>
+                    <div>
+
                     <input placeholder='profile' type='file' name='profil_url' onChange={(e) => setProfile(e.target.files)} />
+                    </div>
                     <br />
   
 
