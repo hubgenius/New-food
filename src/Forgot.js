@@ -89,7 +89,7 @@ function Forgot() {
                 <Grid>
                     <Paper elevation={20} style={paperStyle}>
                         <Grid align='center'>
-                            <h2> Forfet Password</h2>
+                            <h2> Forget Password</h2>
                         </Grid>
                         <form>
                             <TextField name='email' fullWidth label='Email'value={values.email} onChange={handleChange} error={Boolean(errors.email)} helperText={errors.email}  />
