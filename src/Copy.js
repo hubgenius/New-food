@@ -9,17 +9,14 @@ import { omit } from 'lodash'
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { textAlign } from '@mui/system'
-import GoogleLogin from 'react-google-login';
-
 const Login = () => {
-    const [email, setEmail] = useState('');
+    const [phonenumber, setphonenumber] = useState('');
     const [password, setpassword] = useState('');
     const [errors, setErrors] = useState({});
     const [values, setValues] = useState({});
 
     const { id } = useParams()
     let history = useHistory();
-   
     useEffect(() => {
         localStorage.removeItem("token");
     }, [])
@@ -27,15 +24,19 @@ const Login = () => {
         e.preventDefault()
         let item = {
             // username: values.username,
-            email: values.email,
-            // phonenumber:values.phonenumber,
+            // email: values.email,
+            phone:values.phonenumber,
             password: values.password
         }
         console.log(item)
-        axios.post("https://unlimitedfood.herokuapp.com/login", item).then((res) => {
+        axios.post("http://unlimitedfood.herokuapp.com/otp", item).then((res) => {
             localStorage.setItem('token', res.data.token);
             if (res.data.success === true) {
-                window.location.reload(true)
+                    window.location.reload(true)
+
+                    // history.push('/Table')
+               
+            
                 // history.push('/Table')
             }
             // console.log("updare", res)
@@ -51,12 +52,7 @@ const Login = () => {
     //         // console.log("updare", res)
     //     })
     // }
-    function changeemail() {
-        history.push("/")
-    }
-    function changeotp() {
-        history.push("/otp")
-    }
+
 
     const validate = (event, name, value) => {
         //A function to validate each input values
@@ -80,17 +76,17 @@ const Login = () => {
                 }
                 break;
 
-            case 'email':
+            case 'phonenumber':
                 if (
-                    !new RegExp(/^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/).test(value)
+                    !new RegExp(/^((\+)?(\d{2}[-]))?(\d{10}){1}?$/).test(value)
                 ) {
                     setErrors({
                         ...errors,
-                        email: 'Enter a valid email address just like xyz2@gmail.com'
+                        phonenumber: 'Enter a valid phonenumber '
                     })
                 } else {
 
-                    let newObj = omit(errors, "email");
+                    let newObj = omit(errors, "phonenumber");
                     setErrors(newObj);
 
                 }
@@ -107,7 +103,7 @@ const Login = () => {
         validate(event, name, val);
         setValues({
             ...values,
-            [name]: val, [email]: val, [password]: val
+            [name]: val, [phonenumber]: val, [password]: val
         })
     }
     const paperStyle = { padding: '30px 20px', width: 300, margin: '20px auto' }
@@ -119,9 +115,6 @@ const Login = () => {
     const handleonmousedown = () => {
         setpassword(!password)
     }
-    const responseGoogle = (response) => {
-        console.log(response);
-      }
     return (
         <div>
 
@@ -195,38 +188,10 @@ const Login = () => {
                                                 <i class="fas fa-cubes fa-2x me-3" style={{ color: "#ff6219" }}></i>
                                                 <span class="h1 fw-bold mb-0">Unlimited Food Shop</span>
                                             </div>
-                                            <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
-
-                                                <h6 class="mb-0 me-4">Login With: </h6>
-
-                                                <div class="form-check form-check-inline mb-0 me-4">
-                                                    <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="inlineRadioOptions"
-                                                        value={1}
-                                                        onClick={(e) => changeemail(e.target.value)}
-                                                    />
-                                                    <label class="form-check-label">Email</label>
-                                                </div>
-
-                                                <div class="form-check form-check-inline mb-0 me-4">
-                                                    <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="inlineRadioOptions"
-                                                        value={2}
-                                                        onClick={(e) => changeotp(e.target.value)}
-                                                    />
-                                                    <label class="form-check-label" >Mobilephone</label>
-                                                </div>
-
-
-                                            </div>
                                             <form>
-                                                <TextField name='email' fullWidth label='Email' variant='outlined' value={values.email} onChange={handleChange} error={Boolean(errors.email)} helperText={errors.email} />
-                                                <br />
-                                                <br />
+                                                <TextField name='phonenumber' fullWidth label='Phonenumber' variant='outlined' value={values.phonenumber} onChange={handleChange} error={Boolean(errors.phonenumber)} helperText={errors.phonenumber} />
+                                            <br/>
+                                            <br/>
                                                 <TextField name='password' fullWidth label='Passwrord' variant='outlined' type={password ? 'text' : 'password'} value={values.password} onChange={handleChange} error={Boolean(errors.password)} helperText={errors.password}
                                                     InputProps={{
                                                         endAdornment: (
@@ -241,18 +206,11 @@ const Login = () => {
                                                             </InputAdornment>
                                                         )
                                                     }} />
-                                                <br />
-                                                <br />
+                                                    <br/>
+                                                    <br/>
                                                 <div class="pt-1 mb-4">
                                                     <button class="btn btn-dark btn-lg btn-block" type="button" onClick={postData}>Login</button>
                                                 </div>
-                                                <GoogleLogin
-                                                    clientId="4003000180-ltll1vf8euevgvter0mj4u9um3lgropv.apps.googleusercontent.com"
-                                                    buttonText="Login"
-                                                    onSuccess={responseGoogle}
-                                                    onFailure={responseGoogle}
-                                                    cookiePolicy={'single_host_origin'}
-                                                />
 
 
                                                 <div className="small text-muted">

@@ -13,6 +13,7 @@ import User from './User'
 import L from './L'
 import Profile from './Profile';
 import Logout from './Logout';
+import Copy from './Copy'
 const currentUserSubject = localStorage.getItem('token');
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -55,6 +56,7 @@ const PublicRoute = ({ component: Component, ...rest }) => (
 function App() {
   return (
     <div className="App">
+      {/* <Copy/> */}
       <Router>
         {/* <L/> */}
         <Menu/>
@@ -63,6 +65,7 @@ function App() {
           <PublicRoute exact path="/" component={Login} />
           <PublicRoute  path="/Register" component={Register} />
           <PublicRoute  path="/forget" component={Forgot} />
+          <PublicRoute  path="/otp" component={Copy} />
           <PrivateRoute path="/Logout" component={Logout} />
            <PrivateRoute path="/Table" component={Table} />
           <PrivateRoute  path="/add" component={Add} />
