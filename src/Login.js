@@ -32,7 +32,7 @@ const Login = () => {
             password: values.password
         }
         console.log(item)
-        axios.post("https://unlimitedfood.herokuapp.com/login", item).then((res) => {
+        axios.post("http://localhost:8080/login", item).then((res) => {
             localStorage.setItem('token', res.data.token);
             if (res.data.success === true) {
                 window.location.reload(true)
@@ -123,7 +123,7 @@ const Login = () => {
         console.log(response);
       }
     return (
-        <div>
+        <div  className='container-fluid' style={{backgroundImage:"URL(https://images.pexels.com/photos/1591447/pexels-photo-1591447.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)"}}>
 
             {/* <Grid>
                 <Paper elevation={20} style={paperStyle}>
@@ -253,11 +253,14 @@ const Login = () => {
                                                     onFailure={responseGoogle}
                                                     cookiePolicy={'single_host_origin'}
                                                 />
-
+                                                <br/>
+                                                <br/>
 
                                                 <div className="small text-muted">
                                                     <Link to='/forget'>Forgot Password ?</Link>
                                                 </div>
+                                                <br/>
+                                                <br/>
 
                                                 <p class="mb-5 pb-lg-2" style={{ color: "#393f81" }}>Don't have an account?  <Link to='/Register'>Register here </Link></p>
                                                 <a href="#!" class="small text-muted">Terms of use.</a>

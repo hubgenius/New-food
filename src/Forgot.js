@@ -86,8 +86,9 @@ function Log() {
             password: values.password
         }
         console.log(item)
-        axios.put("https://unlimitedfood.herokuapp.com/forget", item).then((res) => {
+        axios.put("http://localhost:8080/forget", item).then((res) => {
             console.log("updare", res)
+            // window.location.reload(true)
             history.push('/')
         })
 
@@ -101,10 +102,10 @@ function Log() {
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image" />
                         </div>
                         <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                        <h5 className="fw-normal mb-3 pb-3" style={{ letterspacing: "1px" }}>Sign into your account</h5>
+                        <h5 className="fw-normal mb-3 pb-3" style={{ letterspacing: "1px" }}>Forgot Password</h5>
 
                             <form>
-                                <div class="form-outline mb-4">
+                                {/* <div class="form-outline mb-4"> */}
                                     <TextField
                                         id="outlined-basic"
                                         fullWidth label='email'
@@ -124,16 +125,18 @@ function Log() {
                                             )
                                         }}
                                     />
-                                </div>
+                                    <br/>
+                                    <br/>
+                                {/* </div> */}
 
-                                <div class="form-outline mb-4">
-                                    <TextField type="password"
+                                {/* <div class="form-outline mb-4"> */}
+                                    <TextField 
                                         name='password'
 
                                         fullWidth label='password'
                                         variant="outlined"
                                         value={values.password}
-                                        typeof ={password ? 'text' : 'password'}
+                                        type ={password ? 'text' : 'password'}
                                         onChange={handleChange}
                                         error={Boolean(errors.password)}
                                         helperText={errors.password}
@@ -151,11 +154,14 @@ function Log() {
                                                 </InputAdornment>
                                             )
                                         }} />
-                                </div>
+                                        <br/>
+                                        <br/>
+                                      
+                                {/* </div> */}
 
-                                <button type="submit" class="btn btn-primary btn-lg btn-block" onClick={postdata}>Sign in</button>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" onClick={postdata}>Submit</button>
 
-                                <div class="divider d-flex align-items-center my-4">
+                                {/* <div class="divider d-flex align-items-center my-4">
                                     <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
                                 </div>
 
@@ -163,7 +169,7 @@ function Log() {
                                     <i class="fab fa-facebook-f me-2"></i>Continue with Facebook
                                 </a>
                                 <a class="btn btn-primary btn-lg btn-block" style={{ backgroundcolor: "#55acee" }} href="#!" role="button">
-                                    <i class="fab fa-twitter me-2"></i>Continue with Twitter</a>
+                                    <i class="fab fa-twitter me-2"></i>Continue with Twitter</a> */}
 
                             </form>
                         </div>

@@ -29,7 +29,7 @@ const Login = () => {
             password: values.password
         }
         console.log(item)
-        axios.post("https://unlimitedfood.herokuapp.com/otp", item).then((res) => {
+        axios.post("http://localhost:8080/otp", item).then((res) => {
             localStorage.setItem('token', res.data.token);
             if (res.data.success === true) {
                     window.location.reload(true)

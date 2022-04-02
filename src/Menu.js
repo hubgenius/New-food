@@ -2,8 +2,8 @@ import React from 'react'
 import {Navbar,Container,Offcanvas,Nav,Form,FormControl,Button} from 'react-bootstrap'
 function Menu() {
   return (
-    <div>
-        <Navbar bg="light" expand={false}>
+    <div >
+        <Navbar  expand={false} style={{backgroundColor:"#58c3b9"}}>
   <Container fluid>
     <Navbar.Brand href="#">Food Shop</Navbar.Brand>
     <Navbar.Toggle aria-controls="offcanvasNavbar" />
@@ -36,6 +36,7 @@ function Menu() {
     </Navbar.Offcanvas>
   </Container>
 </Navbar>
+
     </div>
   )
 }
