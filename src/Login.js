@@ -185,7 +185,8 @@ const Login = () => {
                                         <img
                                             src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg"
                                             alt="Trendy Pants and Shoes"
-                                            class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5"
+                                            class="w-10
+                                            0 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5"
                                         />
                                     </div>
                                     <div class="col-md-6 col-lg-7 d-flex align-items-center">
