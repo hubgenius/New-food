@@ -32,7 +32,7 @@ const Login = () => {
             password: values.password
         }
         console.log(item)
-        axios.post("http://localhost:8080/login", item).then((res) => {
+        axios.post("https://unlimitedfood.herokuapp.com/login", item).then((res) => {
             localStorage.setItem('token', res.data.token);
             if (res.data.success === true) {
                 window.location.reload(true)
