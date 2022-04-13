@@ -21,10 +21,8 @@ function Log() {
     let history = useHistory()
     const [errors, setErrors] = useState('');
     const [values, setValues] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        password: ''
+        code: '',
+       
     })
     const handleChange = (event) => {
         event.preventDefault();
@@ -82,16 +80,38 @@ function Log() {
     function postdata(e) {
         e.preventDefault();
         let item = {
-            email: values.email,
-            password: values.password
+           phone:localStorage.getItem("phonenumber"),
+            code: values.code
         }
         console.log(item)
-        axios.put("https://unlimitedfood.herokuapp.com/forget", item).then((res) => {
+        axios.post("http://localhost:8080/verify", item).then((res) => {
             console.log("updare", res)
-            // window.location.reload(true)
-            history.push('/')
+            if(res.data.success=== true){
+                localStorage.setItem("token",res.data.token)
+                window.location.reload(true);
+            }
+            // history.push('/Table')
         })
 
+        
+    }
+    function resenddata(e) {
+        e.preventDefault();
+        let item = {
+           phone:localStorage.getItem("phonenumber"),
+            code: values.code
+        }
+        console.log(item)
+        axios.post("http://localhost:8080/resend", item).then((res) => {
+            console.log("updare", res)
+            if(res.data.success=== true){
+                localStorage.setItem("token",res.data.token)
+                window.location.reload(true);
+            }
+            // history.push('/Table')
+        })
+
+        
     }
     return (
         <div>
@@ -106,7 +126,7 @@ function Log() {
 
                             <form>
                                 {/* <div class="form-outline mb-4"> */}
-                                    <TextField
+                                    {/* <TextField
                                         id="outlined-basic"
                                         fullWidth label='email'
                                         name='email'
@@ -126,40 +146,43 @@ function Log() {
                                         }}
                                     />
                                     <br/>
-                                    <br/>
+                                    <br/> */}
                                 {/* </div> */}
 
                                 {/* <div class="form-outline mb-4"> */}
                                     <TextField 
-                                        name='password'
-
-                                        fullWidth label='password'
+                                        name='code'
+                                        type='number'
+                                        fullWidth label='code'
                                         variant="outlined"
-                                        value={values.password}
-                                        type ={password ? 'text' : 'password'}
+                                        code={values.code}
+                                        // type ={password ? 'text' : 'password'}
                                         onChange={handleChange}
-                                        error={Boolean(errors.password)}
-                                        helperText={errors.password}
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position='end'>
-                                                    <IconButton
+                                        // error={Boolean(errors.password)}
+                                        // helperText={errors.password}
+                                        // InputProps={{
+                                        //     endAdornment: (
+                                        //         <InputAdornment position='end'>
+                                        //             <IconButton
 
-                                                        onClick={handleonclick}
-                                                        onMouseDown={handleonmousedown}
+                                        //                 onClick={handleonclick}
+                                        //                 onMouseDown={handleonmousedown}
                                                 
-                                                >
-                                                        {password ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            )
-                                        }} />
+                                        //         >
+                                        //                 {password ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                        //             </IconButton>
+                                        //         </InputAdornment>
+                                        //     )
+                                        
+                                         />
                                         <br/>
                                         <br/>
                                       
                                 {/* </div> */}
 
                                 <button type="submit" class="btn btn-primary btn-lg btn-block" onClick={postdata}>Submit</button>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" onClick={resenddata}>Resend OTP</button>
+                                
 
                                 {/* <div class="divider d-flex align-items-center my-4">
                                     <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>

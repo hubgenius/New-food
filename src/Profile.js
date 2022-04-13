@@ -12,18 +12,30 @@ export default function Pp() {
     const [phonenumber, setphonenumber] = useState("data");
     const [profile, setProfile] = useState([]);
     useEffect(() => {
-        data()
+        // data()
+        dataNew()
     }, [])
 
 
-    function data() {
+    // function data() {
+    //     let token = localStorage.getItem("token");
+
+    //     axios.get(`http://localhost:8080/Abc`, { headers: { 'x-access-token': token } }).then((res) => {
+    //         setName(res.data.data.username)
+    //         setemail(res.data.data.email)
+    //         setphonenumber(res.data.data.phone)
+    //         setProfile(res.data.data.profile_url)
+    //         console.log("hbhj", res)
+    //     })
+    // }
+    function dataNew() {
         let token = localStorage.getItem("token");
 
-        axios.get(`https://unlimitedfood.herokuapp.com/Abc`, { headers: { 'x-access-token': token } }).then((res) => {
-            setName(res.data.data.username)
-            setemail(res.data.data.email)
-            setphonenumber(res.data.data.phone)
-            setProfile(res.data.data.profile_url)
+        axios.get(`https://unlimitedfood.herokuapp.com/loginwithgoogle`, { headers: { 'x-access-token': token } }).then((res) => {
+            setName(res.data.data[0].username)
+            setemail(res.data.data[0].email)
+            // setphonenumber(res.data.data.phone)
+            setProfile(res.data.data[0].profile_file)
             console.log("hbhj", res)
         })
     }
@@ -48,7 +60,7 @@ export default function Pp() {
             <div className='Container'>
             <img src={profile} alt='' height='100' width='100'></img>
                 <form>
-                    {data}
+                    {dataNew}
                     <div>
                         <TextField value={name}
                             onChange={(e) => setName(e.target.value)}

@@ -14,6 +14,9 @@ import L from './L'
 import Profile from './Profile';
 import Logout from './Logout';
 import Copy from './Copy'
+import Verify from './Verify'
+import { Public } from '@mui/icons-material';
+import Cart from './Cart'
 const currentUserSubject = localStorage.getItem('token');
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -56,12 +59,15 @@ const PublicRoute = ({ component: Component, ...rest }) => (
 function App() {
   return (
     <div className="App">
+    
+      
+      {/* <Login/> */}
       {/* <Copy/> */}
       <Router>
         {/* <L/> */}
         <Menu/>
         <Switch>
-          {/* <Route exact path='/' component={Login}/> */}
+          {/* <Route exact path='/' component={Login}/>  */}
           <PublicRoute exact path="/" component={Login} />
           <PublicRoute  path="/Register" component={Register} />
           <PublicRoute  path="/forget" component={Forgot} />
@@ -71,7 +77,10 @@ function App() {
           <PrivateRoute  path="/add" component={Add} />
           <PrivateRoute  path="/User" component={User} />
           <PrivateRoute  path="/Profile" component={Profile} />
-          {/* <PrivateRoute  path="/Logout" component={Logout} /> */}
+          <PrivateRoute  path="/Cart" component={Cart} />
+          <PublicRoute  path="/Verify" component={Verify} />
+
+          {/* <PrivateRoute  path="/Logout" component={Logout} />
           {/* <PrivateRoute exact path="/" component={Login} /> */}
 
           {/* <Route exact  path='/Register' component={Register}/> */}

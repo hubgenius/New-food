@@ -52,36 +52,33 @@ function Register() {
     // }
     const handleClick = () => {
        
-        //     let FD = new FormData();
-        //     FD.append('name', name);
-        //     FD.append('phonenumber', phonenumber);
-        //     FD.append('email', email);
-        //     FD.append('age', age);
-        //     FD.append('profile_file', profile[0]);
-        //     console.log("profile", profile);
-        //     axios.post('http://localhost:9000/api/', FD)
-        //     history.push("/")
-        // }
+        if(username === '' || profile === '0' ){
+            alert("please add all details")
+        }else{
+
+        
         let FD = new FormData();
         FD.append('username',values.username);
         FD.append('email',values.email)
         FD.append('phone',values.phone)
         FD.append("password",values.password)
         FD.append('profile_file',profile[0]);
-        // let item = {
-        //     username: values.username,
-        //     email: values.email,
-        //     phone: values.phone,
-        //     password: values.password,
-        //     profile:values.profile_url[0]
-        // }
+       
         console.log(FD)
     //    let token = localStorage.getItem('token')
 
         axios.post("https://unlimitedfood.herokuapp.com/Add", FD).then((res) => {
-            history.push('/User')
+            setTimeout(() => {
+                // window.location.reload(true)
+                  history.push('/')
+              }, 5000);
+                // window.location.reload(true)
+                // history.push('/')
+                //   history.push('/')
+           
         })
         setOpen(true);
+    }
     };
 
     const handleClose = (event, reason) => {
@@ -185,7 +182,7 @@ function Register() {
                         <br />
                         <br />
                         <Stack spacing={2} sx={{ width: '100%' }}>
-                            <Button variant="outlined" onClick={handleClick} > <Link to='/'>submit</Link></Button>
+                            <Button variant="outlined" onClick={handleClick} > submit</Button>
                             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                                     This is a success message!

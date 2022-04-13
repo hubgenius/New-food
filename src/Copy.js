@@ -29,16 +29,16 @@ const Login = () => {
             password: values.password
         }
         console.log(item)
-        axios.post("http://localhost:8080/otp", item).then((res) => {
-            localStorage.setItem('token', res.data.token);
-            if (res.data.success === true) {
-                    window.location.reload(true)
-
-                    // history.push('/Table')
+        axios.post("https://unlimitedfood.herokuapp.com//otp", item).then((res) => {
+            localStorage.setItem('phonenumber', values.phonenumber);
+            // if (res.data.success === true) {
+                    // window.location.reload(true)
+                    history.push('/Verify')
+            // }
                
             
                 // history.push('/Table')
-            }
+            
             // console.log("updare", res)
         })
     }

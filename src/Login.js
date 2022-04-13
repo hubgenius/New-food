@@ -19,7 +19,7 @@ const Login = () => {
 
     const { id } = useParams()
     let history = useHistory();
-   
+
     useEffect(() => {
         localStorage.removeItem("token");
     }, [])
@@ -41,6 +41,26 @@ const Login = () => {
             // console.log("updare", res)
         })
     }
+    const googleData = async googleData => {
+        let response = {
+            token: googleData.tokenId
+        }
+        axios.post("https://unlimitedfood.herokuapp.com/google", response).then((res) => {
+            localStorage.setItem('token', res.data.token);
+            if (res.data.success === true) {
+                setTimeout(() => {
+                    window.location.reload(true)
+                  }, 1000);
+              
+            }
+            console.log("fffff",res)
+        })
+
+
+    }
+
+    // store returned user somehow
+
 
     //     axios.post("https://unlimitedfood.herokuapp.com/login", item).then((res) => {
     //         localStorage.setItem('token', res.data.token);
@@ -121,9 +141,9 @@ const Login = () => {
     }
     const responseGoogle = (response) => {
         console.log(response);
-      }
+    }
     return (
-        <div  className='container-fluid' style={{backgroundImage:"URL(https://images.pexels.com/photos/1591447/pexels-photo-1591447.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)"}}>
+        <div className='container-fluid' style={{ backgroundImage: "URL(https://images.pexels.com/photos/1591447/pexels-photo-1591447.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)" }}>
 
             {/* <Grid>
                 <Paper elevation={20} style={paperStyle}>
@@ -185,8 +205,7 @@ const Login = () => {
                                         <img
                                             src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg"
                                             alt="Trendy Pants and Shoes"
-                                            class="w-10
-                                            0 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5"
+                                            class="w-100 h-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" 
                                         />
                                     </div>
                                     <div class="col-md-6 col-lg-7 d-flex align-items-center">
@@ -227,7 +246,6 @@ const Login = () => {
                                             <form>
                                                 <TextField name='email' fullWidth label='Email' variant='outlined' value={values.email} onChange={handleChange} error={Boolean(errors.email)} helperText={errors.email} />
                                                 <br />
-                                                <br />
                                                 <TextField name='password' fullWidth label='Passwrord' variant='outlined' type={password ? 'text' : 'password'} value={values.password} onChange={handleChange} error={Boolean(errors.password)} helperText={errors.password}
                                                     InputProps={{
                                                         endAdornment: (
@@ -243,25 +261,24 @@ const Login = () => {
                                                         )
                                                     }} />
                                                 <br />
-                                                <br />
                                                 <div class="pt-1 mb-4">
                                                     <button class="btn btn-dark btn-lg btn-block" type="button" onClick={postData}>Login</button>
                                                 </div>
+                                                <br />
+
                                                 <GoogleLogin
-                                                    clientId="4003000180-ltll1vf8euevgvter0mj4u9um3lgropv.apps.googleusercontent.com"
+                                                    clientId="914094718085-7imemoeuj65s4eo25lotr5hgldgl2kdc.apps.googleusercontent.com"
                                                     buttonText="Login"
-                                                    onSuccess={responseGoogle}
-                                                    onFailure={responseGoogle}
+                                                    onSuccess={googleData}
+                                                    onFailure={googleData}
                                                     cookiePolicy={'single_host_origin'}
                                                 />
-                                                <br/>
-                                                <br/>
+                                                <br />
 
                                                 <div className="small text-muted">
                                                     <Link to='/forget'>Forgot Password ?</Link>
                                                 </div>
-                                                <br/>
-                                                <br/>
+                                                <br />
 
                                                 <p class="mb-5 pb-lg-2" style={{ color: "#393f81" }}>Don't have an account?  <Link to='/Register'>Register here </Link></p>
                                                 <a href="#!" class="small text-muted">Terms of use.</a>

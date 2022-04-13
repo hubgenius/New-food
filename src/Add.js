@@ -44,6 +44,11 @@ function Register() {
         }
     }
     const handleClick = () => {
+        if(name === '' || profile === '0' ){
+            alert("please add all details")
+        }else{
+
+        
         let FD = new FormData();
         FD.append('name', name);
         FD.append('description', description);
@@ -60,11 +65,13 @@ function Register() {
         //     profile_url:profile
         // }
         // console.log(item)
+        
         let token = localStorage.getItem('token')
-        axios.post(`https://unlimitedfood.herokuapp.com`, FD, { headers: { 'x-access-token': token } }).then((res) => {
+        axios.post("https://unlimitedfood.herokuapp.com", FD, { headers: { 'x-access-token': token } }).then((res) => {
         })
         history.push('/Table')
         setOpen(true);
+    }
     };
 
     const handleClose = (event, reason) => {

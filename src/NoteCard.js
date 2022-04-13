@@ -7,16 +7,12 @@ import { red } from '@mui/material/colors';
 import Avatar from '@mui/material/Avatar';
 import { Link } from 'react-router-dom';
 
-function NoteCard({ note, handleclick }) {
+function NoteCard({ note, handleclick,addcart}) {
     return (
         <div>
             <Card  sx={{ maxWidth: 345 }}>
                 <CardHeader
-                    // avatar={
-                    //     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                    //         M
-                    //     </Avatar>
-                    // }
+                    
                     action={
                         <IconButton onClick={() => handleclick(note._id)}>
                             <DeleteOutline />
@@ -30,7 +26,7 @@ function NoteCard({ note, handleclick }) {
                         {note.description}
                     </Typography>
                     <Typography>
-                        <img src={note.profile_url} style={{ width: 120, height: 100}} alt='' />
+                        <img src={note.profile_url}  alt='' height="150px" width="250px"/>
 
                     </Typography>
                     <Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>
@@ -40,18 +36,14 @@ function NoteCard({ note, handleclick }) {
                 </CardContent>
 
             </Card>
-                {/* <CardActions>
-                    <Button size="large"><Link to ='/Add'> Add</Link></Button>
-
-                </CardActions> */}
+                <CardActions>
+                
+                    <Button size="large" onClick={()=>addcart(note)}> Add to Cart</Button>
+                
+                </CardActions>
 
         </div>
     )
 }
 
 export default NoteCard
-// {note.name}
-//         {note.description}
-//         {note.price}
-//         {note.quantities}
-//         {note.photo_path} 
