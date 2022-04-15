@@ -26,7 +26,7 @@ function Cart() {
             }).then(function (canvas) {
                 const divImage = canvas.toDataURL("image/png");
                 const pdf = new jsPDF();
-                pdf.addImage(divImage, 'JPEG', 70, 0);
+                pdf.addImage(divImage, 'JPEG', 10, 0);
                 pdf.save("download.pdf");
             })
     };
