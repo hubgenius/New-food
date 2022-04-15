@@ -14,6 +14,7 @@ import Slide from '@mui/material/Slide';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import EmailIcon from '@mui/icons-material/Email';
+import Swal from 'sweetalert2'
 function Log() {
     const [open, setOpen] = React.useState(false);
     const [transition, setTransition] = React.useState(undefined);
@@ -81,6 +82,14 @@ function Log() {
     }
     function postdata(e) {
         e.preventDefault();
+        if(values.email===''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="">Enter Email and Password?</a>'
+            })  
+        }else{
         let item = {
             email: values.email,
             password: values.password
@@ -88,10 +97,20 @@ function Log() {
         console.log(item)
         axios.put("https://unlimitedfood.herokuapp.com/forget", item).then((res) => {
             console.log("updare", res)
+            if(res.data.success===true){
+                Swal.fire(
+                    'Good job!',
+                    'Forgot Password Successfull!',
+                    'success'
+                )
+            }
             // window.location.reload(true)
-            history.push('/')
-        })
+            setTimeout(()=>{
 
+                history.push('/')
+            },2000)
+        })
+    }
     }
     return (
         <div>

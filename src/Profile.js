@@ -34,8 +34,8 @@ export default function Pp() {
         axios.get(`https://unlimitedfood.herokuapp.com/loginwithgoogle`, { headers: { 'x-access-token': token } }).then((res) => {
             setName(res.data.data[0].username)
             setemail(res.data.data[0].email)
-            // setphonenumber(res.data.data.phone)
-            setProfile(res.data.data[0].profile_file)
+            setphonenumber(res.data.data[0].phone)
+            setProfile(res.data.data[0].profile_url)
             console.log("hbhj", res)
         })
     }
@@ -50,7 +50,7 @@ export default function Pp() {
         FD.append('profile_file', profile[0]);
         console.log("profile", profile);
         axios.put(`https://unlimitedfood.herokuapp.com/${id}`, FD,{ headers: { 'x-access-token': token } })
-        history.push('/User')
+        history.push('/Table')
 
     }
 

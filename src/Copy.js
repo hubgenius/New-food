@@ -9,6 +9,7 @@ import { omit } from 'lodash'
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { textAlign } from '@mui/system'
+import Swal from 'sweetalert2'
 const Login = () => {
     const [phonenumber, setphonenumber] = useState('');
     const [password, setpassword] = useState('');
@@ -22,25 +23,40 @@ const Login = () => {
     }, [])
     const postData = (e) => {
         e.preventDefault()
-        let item = {
-            // username: values.username,
-            // email: values.email,
-            phone:values.phonenumber,
-            password: values.password
-        }
+        if(values.phonenumber===undefined || values.password=== undefined){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="">Enter Phonenumber and Password?</a>'
+            })
+        }else{
+
+            let item = {
+                // username: values.username,
+                // email: values.email,
+                phone:values.phonenumber,
+                password: values.password
+            }
         console.log(item)
-        axios.post("https://unlimitedfood.herokuapp.com//otp", item).then((res) => {
+        axios.post("https://unlimitedfood.herokuapp.com/otp", item).then((res) => {
             localStorage.setItem('phonenumber', values.phonenumber);
-            // if (res.data.success === true) {
+            if (res.data.success === true) {
+                Swal.fire(
+                    'Good job!',
+                    'OTP Send To Your Mobilenumber',
+                    'success'
+                )
                     // window.location.reload(true)
                     history.push('/Verify')
-            // }
+            }
                
             
-                // history.push('/Table')
+            // history.push('/Table')
             
             // console.log("updare", res)
         })
+    }
     }
 
     //     axios.post("https://unlimitedfood.herokuapp.com/login", item).then((res) => {

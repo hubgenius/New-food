@@ -22,9 +22,9 @@ function NoteCard({ note, handleclick,addcart}) {
                 />
 
                 <CardContent>
-                    <Typography>
+                    {/* <Typography>
                         {note.description}
-                    </Typography>
+                    </Typography> */}
                     <Typography>
                         <img src={note.profile_url}  alt='' height="150px" width="250px"/>
 

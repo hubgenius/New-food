@@ -10,6 +10,8 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { textAlign } from '@mui/system'
 import GoogleLogin from 'react-google-login';
+import Swal from 'sweetalert2'
+import QRCode from "qrcode.react";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -23,37 +25,51 @@ const Login = () => {
     useEffect(() => {
         localStorage.removeItem("token");
     }, [])
-    const postData = (e) => {
+
+    function postData(e) {
         e.preventDefault()
+        console.log(values.email)
         let item = {
-            // username: values.username,
             email: values.email,
-            // phonenumber:values.phonenumber,
             password: values.password
         }
-        console.log(item)
-        axios.post("https://unlimitedfood.herokuapp.com/login", item).then((res) => {
-            localStorage.setItem('token', res.data.token);
-            if (res.data.success === true) {
-                window.location.reload(true)
-                // history.push('/Table')
-            }
-            // console.log("updare", res)
-        })
+        if (values.email === undefined || values.password === undefined) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="">Enter Email and Password?</a>'
+            })
+        } else {
+
+ 
+            axios.post("https://unlimitedfood.herokuapp.com/login", item).then((res) => {
+                localStorage.setItem('token', res.data.token);
+                if (res.data.success === true) {
+                    Swal.fire(
+                        'Good job!',
+                        'Login Successfull!',
+                        'success'
+                    )
+                    window.location.reload(true)
+                }
+            })
+
+        }
     }
     const googleData = async googleData => {
         let response = {
             token: googleData.tokenId
         }
         axios.post("https://unlimitedfood.herokuapp.com/google", response).then((res) => {
-            localStorage.setItem('token', res.data.token);
             if (res.data.success === true) {
+                localStorage.setItem('token', res.data.token);
                 setTimeout(() => {
                     window.location.reload(true)
-                  }, 1000);
-              
+                }, 1000);
+
             }
-            console.log("fffff",res)
+            console.log("fffff", res)
         })
 
 
@@ -143,7 +159,7 @@ const Login = () => {
         console.log(response);
     }
     return (
-        <div className='container-fluid' style={{ backgroundImage: "URL(https://images.pexels.com/photos/1591447/pexels-photo-1591447.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)" }}>
+        <div className='container-fluid' >
 
             {/* <Grid>
                 <Paper elevation={20} style={paperStyle}>
@@ -195,6 +211,13 @@ const Login = () => {
                 </Paper>
 
             </Grid> */}
+             {/* <div style={{ marginTop: 200, display: "flex",flexDirection: "row" }}>
+         <div>
+            <QRCode
+               value="https://unlimitedfood.herokuapp.com"style={{ marginRight: 50 }}/>
+            <p>Tutorialspoint </p>
+         </div>
+          </div> */}
             <section class="vh-100" style={{ backgroundcolor: "#9A616D" }}>
                 <div class="container py-5 h-100">
                     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -203,9 +226,9 @@ const Login = () => {
                                 <div class="row g-0">
                                     <div class="col-md-6 col-lg-5 d-none d-md-block">
                                         <img
-                                            src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg"
+                                            src="https://us.123rf.com/450wm/captainvector/captainvector1705/captainvector170503669/77324701-order-food-online-concept.jpg?ver=6"
                                             alt="Trendy Pants and Shoes"
-                                            class="w-100 h-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" 
+                                            class="w-100 h-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5"
                                         />
                                     </div>
                                     <div class="col-md-6 col-lg-7 d-flex align-items-center">
@@ -213,7 +236,8 @@ const Login = () => {
 
                                             <div class="d-flex align-items-center mb-3 pb-1">
                                                 <i class="fas fa-cubes fa-2x me-3" style={{ color: "#ff6219" }}></i>
-                                                <span class="h1 fw-bold mb-0">Unlimited Food Shop</span>
+                                                
+                                                <span class="h1 fw-bold mb-0"> Food Shop</span>
                                             </div>
                                             <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
 
@@ -246,6 +270,7 @@ const Login = () => {
                                             <form>
                                                 <TextField name='email' fullWidth label='Email' variant='outlined' value={values.email} onChange={handleChange} error={Boolean(errors.email)} helperText={errors.email} />
                                                 <br />
+                                                <br />
                                                 <TextField name='password' fullWidth label='Passwrord' variant='outlined' type={password ? 'text' : 'password'} value={values.password} onChange={handleChange} error={Boolean(errors.password)} helperText={errors.password}
                                                     InputProps={{
                                                         endAdornment: (
@@ -261,10 +286,11 @@ const Login = () => {
                                                         )
                                                     }} />
                                                 <br />
+                                                <br/>
                                                 <div class="pt-1 mb-4">
-                                                    <button class="btn btn-dark btn-lg btn-block" type="button" onClick={postData}>Login</button>
+                                                    <button class="btn btn-info btn-lg btn-block" type="button" onClick={postData}>Login</button>
                                                 </div>
-                                                <br />
+                                                
 
                                                 <GoogleLogin
                                                     clientId="914094718085-7imemoeuj65s4eo25lotr5hgldgl2kdc.apps.googleusercontent.com"
@@ -274,11 +300,11 @@ const Login = () => {
                                                     cookiePolicy={'single_host_origin'}
                                                 />
                                                 <br />
-
+                                                <br/>
                                                 <div className="small text-muted">
                                                     <Link to='/forget'>Forgot Password ?</Link>
                                                 </div>
-                                                <br />
+                                                {/* <br /> */}
 
                                                 <p class="mb-5 pb-lg-2" style={{ color: "#393f81" }}>Don't have an account?  <Link to='/Register'>Register here </Link></p>
                                                 <a href="#!" class="small text-muted">Terms of use.</a>

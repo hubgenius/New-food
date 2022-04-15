@@ -9,11 +9,11 @@ function Copy() {
     const images = [
         {url: "https://www.ingredion.com/content/dam/ingredion/usca-images/food/meat/cheeseburger-bread_720x560.jpg" },
         { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcW-NkCIIRYhbq6gMjKKxdhrT6OJV7JxbbJA&usqp=CAU" },
-        // { url: "images/3.jpg" },
-        // { url: "images/4.jpg" },
-        // { url: "images/5.jpg" },
-        // { url: "images/6.jpg" },
-        // { url: "images/7.jpg" },
+        { url: "https://i0.wp.com/vegecravings.com/wp-content/uploads/2017/03/samosa-recipe-step-by-step-instructions.jpg?fit=1801%2C1717&quality=65&strip=all&ssl=1" },
+        { url: "https://www.nehascookbook.com/wp-content/uploads/2021/07/Fried-rice-lobi-manchurian-WS.jpg" },
+        { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQupGwAVatFu6WkamUHdNKFTEaa8xl1csbjpA&usqp=CAU" },
+        { url: "https://i.ytimg.com/vi/IpXqjJBf7B0/maxresdefault.jpg" },
+       
     ];
     // let history = useHistory();
     // const [user, setuser] = useState([])

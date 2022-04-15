@@ -1,8 +1,8 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, Paper, TextField } from '@material-ui/core'
 import { Button } from 'react-bootstrap'
 import { useParams, useHistory, Link } from "react-router-dom"
-import {omit} from 'lodash'
+import { omit } from 'lodash'
 
 // import axios from 'axios'
 // import { omit } from 'lodash'
@@ -11,13 +11,14 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import axios from 'axios'
+import Swal from 'sweetalert2'
 function Register() {
     const [open, setOpen] = useState(false);
     const [username, setUsername] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [profile,setProfile]=useState([])
+    const [profile, setProfile] = useState([])
     const [errors, setErrors] = useState({});
     const [values, setValues] = useState({
         username: '',
@@ -51,34 +52,40 @@ function Register() {
     //     }
     // }
     const handleClick = () => {
-       
-        if(username === '' || profile === '0' ){
-            alert("please add all details")
-        }else{
 
-        
-        let FD = new FormData();
-        FD.append('username',values.username);
-        FD.append('email',values.email)
-        FD.append('phone',values.phone)
-        FD.append("password",values.password)
-        FD.append('profile_file',profile[0]);
-       
-        console.log(FD)
-    //    let token = localStorage.getItem('token')
+        if (values.username === "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="">Enter Email and Password?</a>'
+            })
+        } else {
+            let FD = new FormData();
+            FD.append('username', values.username);
+            FD.append('email', values.email)
+            FD.append('phone', values.phone)
+            FD.append("password", values.password)
+            FD.append('profile_file', profile[0]);
 
-        axios.post("https://unlimitedfood.herokuapp.com/Add", FD).then((res) => {
-            setTimeout(() => {
-                // window.location.reload(true)
-                  history.push('/')
-              }, 5000);
-                // window.location.reload(true)
-                // history.push('/')
-                //   history.push('/')
-           
-        })
-        setOpen(true);
-    }
+            console.log(FD)
+            //    let token = localStorage.getItem('token')
+
+            axios.post("https://unlimitedfood.herokuapp.com/Add", FD).then((res) => {
+                if (res.data.success === true) {
+                    Swal.fire(
+                        'Good job!',
+                        'Register Successfull!',
+                        'success'
+                    )
+                    setTimeout(() => {
+                        // window.location.reload(true)
+                        history.push('/')
+                    }, 2000);
+                }
+            })
+            setOpen(true);
+        }
     };
 
     const handleClose = (event, reason) => {
@@ -166,34 +173,34 @@ function Register() {
         })
     }
 
-  return (
-    <div>
-          <Grid>
+    return (
+        <div>
+            <Grid>
                 <Paper elevation={20} style={paperStyle}>
                     <Grid align='center'>
                         <h2> Register Form</h2>
                     </Grid>
                     <form>
-                        <TextField name='username' fullWidth label='Username'  value={values.username} onChange={handleChange}  />
-                        <TextField name='email' fullWidth label='Email'  value={values.email} onChange={handleChange}  />
-                        <TextField name='password' fullWidth label='Passwrord'value={values.password} onChange={handleChange}   />
-                        <TextField name='phone' fullWidth label='Phone' value={values.phone} onChange={handleChange}   />
+                        <TextField name='username' fullWidth label='Username' value={values.username} onChange={handleChange} />
+                        <TextField name='email' fullWidth label='Email' value={values.email} onChange={handleChange} />
+                        <TextField name='password' fullWidth label='Passwrord' value={values.password} onChange={handleChange} />
+                        <TextField name='phone' fullWidth label='Phone' value={values.phone} onChange={handleChange} />
                         <input placeholder='profile' type='file' name='profil_url' onChange={(e) => setProfile(e.target.files)} />
                         <br />
                         <br />
-                        <Stack spacing={2} sx={{ width: '100%' }}>
-                            <Button variant="outlined" onClick={handleClick} > submit</Button>
-                            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                        {/* <Stack spacing={2} sx={{ width: '100%' }}> */}
+                        <Button variant="outlined" onClick={handleClick} > submit</Button>
+                        {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                                     This is a success message!
                                 </Alert>
                             </Snackbar>
-                        </Stack>
+                        </Stack> */}
                     </form>
                 </Paper>
             </Grid>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default Register

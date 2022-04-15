@@ -29,7 +29,7 @@ function Edit() {
     const getuser = () => {
         if (id === undefined || id === null) {
         } else {
-            axios.get(`https://unlimitedfood.herokuapp.com`).then((result) => {
+            axios.get(`http://localhost:8080`).then((result) => {
                 console.log("result.data", result)
                 if (result.data.success === true) {
                     setUsername(result.data.user[0].username)

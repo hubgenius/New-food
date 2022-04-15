@@ -1,28 +1,62 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
+/* eslint-disable no-unused-vars */
+/* eslint-disable default-case */
+/* eslint-disable no-useless-escape */
 /* eslint-disable react/jsx-no-duplicate-props */
 // / eslint-disable jsx-a11y/img-redundant-alt /
 // / eslint-disable react/jsx-no-duplicate-props /
 // / eslint-disable default-case /
 // / eslint-disable no-useless-escape /
 import React, { useState } from 'react'
-import { Grid, Paper, TextField, IconButton, InputAdornment } from '@material-ui/core'
-import { Link, useHistory } from 'react-router-dom';
+// import { Grid, Paper, TextField, IconButton, InputAdornment } from '@material-ui/core'
+import { useHistory } from 'react-router-dom';
 import { omit } from 'lodash'
-import { Button } from 'react-bootstrap'
 import axios from 'axios';
-import Snackbar from '@mui/material/Snackbar';
-import Slide from '@mui/material/Slide';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import EmailIcon from '@mui/icons-material/Email';
+import OTPInput from 'otp-input-react'
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+const useStyles = makeStyles(theme => ({
+    grid: {
+        backgroundColor: "grey",
+        height: "50vh",
+        textAlign: "center"
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2)
+    },
+    resend: {
+        margin: theme.spacing(3, 0, 2)
+    },
+    paper: {
+        marginTop: theme.spacing(8),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
+    }
+}));
 function Log() {
+    const classes = useStyles();
+    const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const [transition, setTransition] = React.useState(undefined);
     const [password, setpassword] = useState(false)
     let history = useHistory()
+    const [code, setcode] = useState('')
     const [errors, setErrors] = useState('');
     const [values, setValues] = useState({
         code: '',
-       
+
     })
     const handleChange = (event) => {
         event.preventDefault();
@@ -80,125 +114,175 @@ function Log() {
     function postdata(e) {
         e.preventDefault();
         let item = {
-           phone:localStorage.getItem("phonenumber"),
-            code: values.code
+            phone: localStorage.getItem("phonenumber"),
+            code: code
         }
         console.log(item)
-        axios.post("http://localhost:8080/verify", item).then((res) => {
+        axios.post("https://unlimitedfood.herokuapp.com/verify", item).then((res) => {
             console.log("updare", res)
-            if(res.data.success=== true){
-                localStorage.setItem("token",res.data.token)
+            if (res.data.success === true) {
+                localStorage.setItem("token", res.data.token)
                 window.location.reload(true);
             }
-            // history.push('/Table')
         })
-
-        
     }
     function resenddata(e) {
         e.preventDefault();
         let item = {
-           phone:localStorage.getItem("phonenumber"),
-            code: values.code
+            phone: localStorage.getItem("phonenumber"),
+            code: code
         }
         console.log(item)
-        axios.post("http://localhost:8080/resend", item).then((res) => {
+        axios.post("https://unlimitedfood.herokuapp.com/resend", item).then((res) => {
             console.log("updare", res)
-            if(res.data.success=== true){
-                localStorage.setItem("token",res.data.token)
+            if (res.data.success === true) {
+                localStorage.setItem("token", res.data.token)
                 window.location.reload(true);
             }
             // history.push('/Table')
         })
 
-        
+
     }
     return (
         <div>
-            <section class="vh-100">
+            {/* <section class="vh-100">
                 <div class="container py-5 h-100">
                     <div class="row d-flex align-items-center justify-content-center h-100">
                         <div class="col-md-8 col-lg-7 col-xl-6">
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image" />
                         </div>
                         <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                        <h5 className="fw-normal mb-3 pb-3" style={{ letterspacing: "1px" }}>Forgot Password</h5>
+                            <h5 className="fw-normal mb-3" style={{ letterspacing: "1px", textAlign: "initial" }}>Enter OTP</h5>
 
                             <form>
-                                {/* <div class="form-outline mb-4"> */}
-                                    {/* <TextField
-                                        id="outlined-basic"
-                                        fullWidth label='email'
-                                        name='email'
-                                        variant="outlined"
-                                        value={values.email}
-                                        onChange={handleChange}
-                                        error={Boolean(errors.email)}
-                                        helperText={errors.email}
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position='end'>
-                                                    <IconButton>
-                                                        <EmailIcon />
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                    />
-                                    <br/>
-                                    <br/> */}
-                                {/* </div> */}
-
-                                {/* <div class="form-outline mb-4"> */}
-                                    <TextField 
+                                <div class="form-outline mb-4"> */}
+                                    {/* <TextField 
                                         name='code'
                                         type='number'
                                         fullWidth label='code'
                                         variant="outlined"
-                                        code={values.code}
+                                        value={values.code}
                                         // type ={password ? 'text' : 'password'}
                                         onChange={handleChange}
-                                        // error={Boolean(errors.password)}
-                                        // helperText={errors.password}
-                                        // InputProps={{
-                                        //     endAdornment: (
-                                        //         <InputAdornment position='end'>
-                                        //             <IconButton
+                                         /> */}
+                                    {/* <OTPInput
+                                        name='code'
+                                        value={code}
+                                        onChange={setcode}
+                                        autoFocus
+                                        OTPLength={6}
+                                        otpType="number"
+                                        disabled={false}
+                                    />
+                                    <br />
+                                    <br />
 
-                                        //                 onClick={handleonclick}
-                                        //                 onMouseDown={handleonmousedown}
-                                                
-                                        //         >
-                                        //                 {password ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                                        //             </IconButton>
-                                        //         </InputAdornment>
-                                        //     )
-                                        
-                                         />
-                                        <br/>
-                                        <br/>
-                                      
-                                {/* </div> */}
-
-                                <button type="submit" class="btn btn-primary btn-lg btn-block" onClick={postdata}>Submit</button>
-                                <button type="submit" class="btn btn-primary btn-lg btn-block" onClick={resenddata}>Resend OTP</button>
-                                
-
-                                {/* <div class="divider d-flex align-items-center my-4">
-                                    <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
                                 </div>
 
-                                <a class="btn btn-primary btn-lg btn-block" style={{ backgroundcolor: "#3b5998" }} href="#!" role="button">
-                                    <i class="fab fa-facebook-f me-2"></i>Continue with Facebook
-                                </a>
-                                <a class="btn btn-primary btn-lg btn-block" style={{ backgroundcolor: "#55acee" }} href="#!" role="button">
-                                    <i class="fab fa-twitter me-2"></i>Continue with Twitter</a> */}
+                                <button type="submit" class="btn btn-primary btn-lg btn-block mx-3" onClick={postdata}>Submit</button>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block " onClick={resenddata}>Resend OTP</button>
 
                             </form>
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
+            <div>
+
+                <Container component="main" maxWidth="sm">
+                    <CssBaseline />
+                    <div className={classes.paper}>
+                        <Grid
+                            container
+                            style={{ backgroundColor: "white" }}
+                            className={classes.grid}
+                            justify="center"
+                            alignItems="center"
+                            spacing={3}
+                        >
+                            <Grid item container justify="center">
+                                <Grid item container alignItems="center" direction="column">
+                                    <Grid item>
+                                        <Avatar className={classes.avatar}>
+                                            <LockOutlinedIcon />
+                                        </Avatar>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography component="h1" variant="h5">
+                                            Verification Code
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12} textAlign="center">
+                                <Paper elevation={0}>
+                                    <Typography variant="h6">
+                                        Please enter the verification code sent to your mobile
+                                    </Typography>
+                                </Paper>
+                            </Grid>
+                            <Grid
+                                item
+                                xs={12}
+                                container
+                                justify="center"
+                                alignItems="center"
+                                direction="column"
+                            >
+                                <Grid item spacing={3} justify="center">
+                                    <OTPInput
+                                        name='code'
+                                        value={code}
+                                        onChange={setcode}
+                                        autoFocus
+                                        OTPLength={6}
+                                        otpType="number"
+                                        disabled={false}
+                                        separator={
+                                            <span>
+                                                <strong>.</strong>
+                                            </span>
+                                        }
+                                        inputStyle={{
+                                            width: "3rem",
+                                            height: "3rem",
+                                            margin: "0 1rem",
+                                            fontSize: "2rem",
+                                            borderRadius: 4,
+                                            border: "1px solid rgba(0,0,0,0.3)"
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid item>
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.submit}
+                                        onClick={postdata}
+                                    >
+                                        Submit otp
+                                    </Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.resend}
+                                        onClick={resenddata}
+                                    >
+                                        Resend otp
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </div>
+                </Container>
+            </div>
         </div>
     )
 }

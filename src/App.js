@@ -17,6 +17,7 @@ import Copy from './Copy'
 import Verify from './Verify'
 import { Public } from '@mui/icons-material';
 import Cart from './Cart'
+import Qr from './Qr'
 const currentUserSubject = localStorage.getItem('token');
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -59,13 +60,13 @@ const PublicRoute = ({ component: Component, ...rest }) => (
 function App() {
   return (
     <div className="App">
-    
+    {/* <Qr/> */}
       
       {/* <Login/> */}
       {/* <Copy/> */}
       <Router>
         {/* <L/> */}
-        <Menu/>
+        {/* <Menu/> */}
         <Switch>
           {/* <Route exact path='/' component={Login}/>  */}
           <PublicRoute exact path="/" component={Login} />

@@ -7,12 +7,18 @@ import { Navbar, Container, Offcanvas, Nav, Form, FormControl, Button, Figure, }
 import { Grid, Paper, CardActions } from '@material-ui/core';
 import NoteCard from './NoteCard';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+// import { Navbar, Container, Offcanvas, Nav, Form, FormControl, Button} from 'react-bootstrap'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Badge from '@mui/material/Badge';
 function Table() {
   const { id } = useParams()
   let history = useHistory();
 
   const items = JSON.parse(localStorage.getItem("shoping"))
   const [user, setuser] = useState([])
+  const [count,setCount]=useState();
   const [myArray, setMyArray] = useState([]);
   useEffect(() => {
     data()
@@ -21,7 +27,7 @@ function Table() {
       items.forEach(element => {
         myArray.push(element)
       });
-    }
+    }setCount(myArray.length)
   }, [])
 
   function data() {
@@ -54,6 +60,7 @@ function Table() {
       myArray.push(data);
       localStorage.setItem("shoping", JSON.stringify(myArray))
       // setMyArray([...myArray,data])
+      setCount(myArray.length)
       console.log(myArray)
     }
   }
@@ -79,6 +86,55 @@ function Table() {
   return (
 
     <div>
+       <Navbar expand={false} style={{ backgroundColor: "#58c3b9"}}>
+        <Container fluid>
+          <Navbar.Brand href="#">Food Shop</Navbar.Brand>
+
+          <span> </span>
+          <span> </span>
+          <span> </span>
+          <span> </span>
+          <span> </span>
+          <IconButton aria-label="cart">
+            <Badge badgeContent={count} color="secondary">
+             <a href='/Cart'>
+              <ShoppingCartIcon /> </a>
+            </Badge>
+          </IconButton>
+          
+
+          <Navbar.Toggle aria-controls="offcanvasNavbar" />
+          <Navbar.Offcanvas
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"
+            placement="end"
+          >
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title id="offcanvasNavbarLabel">Offcanvas</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav className="justify-content-end flex-grow-1 pe-3">
+                <Nav.Link href="/Table">food List</Nav.Link>
+                <Nav.Link href="/User">User List</Nav.Link>
+                <Nav.Link href="/Profile">My Profile</Nav.Link>
+                <Nav.Link href="/Logout">Logout</Nav.Link>
+
+              </Nav>
+
+
+              <Form className="d-flex">
+                <FormControl
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                />
+                <Button variant="outline-success">Search</Button>
+              </Form>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
+      </Navbar>
 
 
       {/* <MaterialTable title=" Material Table"
